@@ -1,3 +1,4 @@
+import '../auction/auction_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -87,8 +88,13 @@ class _BidingoptionWidgetState extends State<BidingoptionWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       FFButtonWidget(
-                        onPressed: () {
-                          print('Button pressed ...');
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AuctionWidget(),
+                            ),
+                          );
                         },
                         text: 'Biding',
                         options: FFButtonOptions(
@@ -141,8 +147,14 @@ class _BidingoptionWidgetState extends State<BidingoptionWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'Main'),
+                              ),
+                            );
                           },
                           text: 'Cancel',
                           options: FFButtonOptions(

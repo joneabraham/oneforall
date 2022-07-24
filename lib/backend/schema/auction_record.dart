@@ -11,18 +11,30 @@ abstract class AuctionRecord
   static Serializer<AuctionRecord> get serializer => _$auctionRecordSerializer;
 
   @nullable
-  @BuiltValueField(wireName: 'time_begin')
-  DateTime get timeBegin;
+  @BuiltValueField(wireName: 'auction_img')
+  String get auctionImg;
 
   @nullable
-  @BuiltValueField(wireName: 'time_end')
-  DateTime get timeEnd;
+  @BuiltValueField(wireName: 'auction_name')
+  String get auctionName;
+
+  @nullable
+  @BuiltValueField(wireName: 'auction_price')
+  int get auctionPrice;
+
+  @nullable
+  @BuiltValueField(wireName: 'auction_desc')
+  String get auctionDesc;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(AuctionRecordBuilder builder) => builder;
+  static void _initializeBuilder(AuctionRecordBuilder builder) => builder
+    ..auctionImg = ''
+    ..auctionName = ''
+    ..auctionPrice = 0
+    ..auctionDesc = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('auction');
@@ -46,11 +58,15 @@ abstract class AuctionRecord
 }
 
 Map<String, dynamic> createAuctionRecordData({
-  DateTime timeBegin,
-  DateTime timeEnd,
+  String auctionImg,
+  String auctionName,
+  int auctionPrice,
+  String auctionDesc,
 }) =>
     serializers.toFirestore(
         AuctionRecord.serializer,
         AuctionRecord((a) => a
-          ..timeBegin = timeBegin
-          ..timeEnd = timeEnd));
+          ..auctionImg = auctionImg
+          ..auctionName = auctionName
+          ..auctionPrice = auctionPrice
+          ..auctionDesc = auctionDesc));

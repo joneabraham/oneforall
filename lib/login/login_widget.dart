@@ -131,6 +131,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           fontSize: 14,
                                           fontWeight: FontWeight.normal,
                                         ),
+                                    keyboardType: TextInputType.emailAddress,
                                   ),
                                 ),
                               ),

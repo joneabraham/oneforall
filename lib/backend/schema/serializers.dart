@@ -10,6 +10,8 @@ import 'smartphone_record.dart';
 import 'headphone_record.dart';
 import 'gaming_record.dart';
 import 'others_record.dart';
+import 'order_record.dart';
+import 'help_record.dart';
 
 import 'index.dart';
 
@@ -30,6 +32,8 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   HeadphoneRecord,
   GamingRecord,
   OthersRecord,
+  OrderRecord,
+  HelpRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

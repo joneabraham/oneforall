@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../bidingoption/bidingoption_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -15,12 +16,10 @@ import 'package:page_transition/page_transition.dart';
 class AuctionWidget extends StatefulWidget {
   const AuctionWidget({
     Key key,
-    this.auction,
-    this.timer,
+    this.bid,
   }) : super(key: key);
 
-  final UsedRecord auction;
-  final AuctionRecord timer;
+  final AuctionRecord bid;
 
   @override
   _AuctionWidgetState createState() => _AuctionWidgetState();
@@ -95,7 +94,7 @@ class _AuctionWidgetState extends State<AuctionWidget>
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  int countControllerValue;
+  int updatedpriceValue;
 
   @override
   void initState() {
@@ -139,23 +138,23 @@ class _AuctionWidgetState extends State<AuctionWidget>
                                   type: PageTransitionType.fade,
                                   child: FlutterFlowExpandedImageView(
                                     image: Image.network(
-                                      widget.auction.img,
+                                      widget.bid.auctionImg,
                                       fit: BoxFit.contain,
                                     ),
                                     allowRotation: false,
-                                    tag: widget.auction.img,
+                                    tag: widget.bid.auctionImg,
                                     useHeroAnimation: true,
                                   ),
                                 ),
                               );
                             },
                             child: Hero(
-                              tag: widget.auction.img,
+                              tag: widget.bid.auctionImg,
                               transitionOnUserGestures: true,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(0),
                                 child: Image.network(
-                                  widget.auction.img,
+                                  widget.bid.auctionImg,
                                   width: double.infinity,
                                   height: double.infinity,
                                   fit: BoxFit.cover,
@@ -194,7 +193,13 @@ class _AuctionWidgetState extends State<AuctionWidget>
                                           size: 24,
                                         ),
                                         onPressed: () async {
-                                          Navigator.pop(context);
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BidingoptionWidget(),
+                                            ),
+                                          );
                                         },
                                       ),
                                     ),
@@ -214,7 +219,7 @@ class _AuctionWidgetState extends State<AuctionWidget>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.auction.name,
+                          widget.bid.auctionName,
                           style: FlutterFlowTheme.of(context).title2,
                         ),
                         Column(
@@ -240,20 +245,20 @@ class _AuctionWidgetState extends State<AuctionWidget>
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          widget.auction.desc,
+                          widget.bid.auctionDesc,
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ],
                     ).animated([animationsMap['rowOnPageLoadAnimation2']]),
                   ),
                   Text(
-                    dateTimeFormat('jm', widget.timer.timeBegin),
+                    getCurrentTimestamp.toString(),
                     style: FlutterFlowTheme.of(context).bodyText1,
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.45, -0.05),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 80, 70, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 70, 0),
                       child: Container(
                         width: 160,
                         height: 50,
@@ -287,10 +292,10 @@ class _AuctionWidgetState extends State<AuctionWidget>
                               fontSize: 16,
                             ),
                           ),
-                          count: countControllerValue ??= 0,
+                          count: updatedpriceValue ??= widget.bid.auctionPrice,
                           updateCount: (count) =>
-                              setState(() => countControllerValue = count),
-                          stepSize: 1,
+                              setState(() => updatedpriceValue = count),
+                          stepSize: 100,
                         ),
                       ),
                     ),

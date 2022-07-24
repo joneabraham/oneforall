@@ -14,6 +14,8 @@ import 'schema/smartphone_record.dart';
 import 'schema/headphone_record.dart';
 import 'schema/gaming_record.dart';
 import 'schema/others_record.dart';
+import 'schema/order_record.dart';
+import 'schema/help_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -31,6 +33,8 @@ export 'schema/smartphone_record.dart';
 export 'schema/headphone_record.dart';
 export 'schema/gaming_record.dart';
 export 'schema/others_record.dart';
+export 'schema/order_record.dart';
+export 'schema/help_record.dart';
 
 /// Functions to query UserRecords (as a Stream and as a Future).
 Stream<List<UserRecord>> queryUserRecord({
@@ -446,6 +450,90 @@ Future<FFFirestorePage<OthersRecord>> queryOthersRecordPage({
     queryCollectionPage(
       OthersRecord.collection,
       OthersRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query OrderRecords (as a Stream and as a Future).
+Stream<List<OrderRecord>> queryOrderRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      OrderRecord.collection,
+      OrderRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<OrderRecord>> queryOrderRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      OrderRecord.collection,
+      OrderRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<OrderRecord>> queryOrderRecordPage({
+  Query Function(Query) queryBuilder,
+  DocumentSnapshot nextPageMarker,
+  int pageSize,
+  bool isStream,
+}) =>
+    queryCollectionPage(
+      OrderRecord.collection,
+      OrderRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query HelpRecords (as a Stream and as a Future).
+Stream<List<HelpRecord>> queryHelpRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      HelpRecord.collection,
+      HelpRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<HelpRecord>> queryHelpRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      HelpRecord.collection,
+      HelpRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<HelpRecord>> queryHelpRecordPage({
+  Query Function(Query) queryBuilder,
+  DocumentSnapshot nextPageMarker,
+  int pageSize,
+  bool isStream,
+}) =>
+    queryCollectionPage(
+      HelpRecord.collection,
+      HelpRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

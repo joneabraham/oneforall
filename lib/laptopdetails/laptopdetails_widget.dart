@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -383,6 +384,12 @@ class _LaptopdetailsWidgetState extends State<LaptopdetailsWidget>
                             ],
                           );
                         },
+                      );
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavBarPage(initialPage: 'cart'),
+                        ),
                       );
                     },
                     text: 'Add to Cart',

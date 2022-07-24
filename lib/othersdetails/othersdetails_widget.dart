@@ -11,22 +11,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SmartphonedetailsWidget extends StatefulWidget {
-  const SmartphonedetailsWidget({
+class OthersdetailsWidget extends StatefulWidget {
+  const OthersdetailsWidget({
     Key key,
-    this.saaa,
-    this.pho,
+    this.oth,
+    this.oth2,
   }) : super(key: key);
 
-  final SmartphoneRecord saaa;
-  final DocumentReference pho;
+  final OthersRecord oth;
+  final DocumentReference oth2;
 
   @override
-  _SmartphonedetailsWidgetState createState() =>
-      _SmartphonedetailsWidgetState();
+  _OthersdetailsWidgetState createState() => _OthersdetailsWidgetState();
 }
 
-class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
+class _OthersdetailsWidgetState extends State<OthersdetailsWidget>
     with TickerProviderStateMixin {
   double ratingBarValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -180,7 +179,7 @@ class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(0),
                                 child: Image.network(
-                                  widget.saaa.productImage,
+                                  widget.oth.productImage,
                                   width: double.infinity,
                                   height: double.infinity,
                                   fit: BoxFit.contain,
@@ -239,7 +238,7 @@ class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.saaa.productname,
+                          widget.oth.productname,
                           style: FlutterFlowTheme.of(context).title2,
                         ),
                       ],
@@ -251,7 +250,7 @@ class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          widget.saaa.orgPrice.toString(),
+                          widget.oth.orgPrice.toString(),
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Poppins',
@@ -259,13 +258,13 @@ class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
                                   ),
                         ),
                         Text(
-                          widget.saaa.discount,
+                          widget.oth.discount,
                           style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                           child: Text(
-                            widget.saaa.productPrice.toString(),
+                            widget.oth.productPrice.toString(),
                             style:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
@@ -325,7 +324,7 @@ class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 250, 0),
                               child: Text(
-                                widget.saaa.productDesc,
+                                widget.oth.productDesc,
                                 style: FlutterFlowTheme.of(context).bodyText1,
                               ),
                             ),
@@ -365,9 +364,9 @@ class _SmartphonedetailsWidgetState extends State<SmartphonedetailsWidget>
                   FFButtonWidget(
                     onPressed: () async {
                       final cartCreateData = createCartRecordData(
-                        productName: widget.saaa.productname,
-                        price: widget.saaa.productPrice,
-                        image: widget.saaa.productImage,
+                        productName: widget.oth.productname,
+                        price: widget.oth.productPrice,
+                        image: widget.oth.productImage,
                         userId: currentUserReference,
                       );
                       await CartRecord.collection.doc().set(cartCreateData);

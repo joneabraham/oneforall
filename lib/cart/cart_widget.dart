@@ -1,8 +1,10 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../deliveryaddress/deliveryaddress_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -275,6 +277,13 @@ class _CartWidgetState extends State<CartWidget> {
                                       onPressed: () async {
                                         await listViewCartRecord.reference
                                             .delete();
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                NavBarPage(initialPage: 'cart'),
+                                          ),
+                                        );
                                       },
                                     ),
                                   ],
@@ -285,36 +294,84 @@ class _CartWidgetState extends State<CartWidget> {
                         },
                       ),
                     ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Total Price',
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 20,
+                                  ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(170, 0, 0, 0),
+                            child: Text(
+                              'Rs.',
+                              textAlign: TextAlign.end,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 20,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '90000',
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 20,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 100,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).black600,
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 4,
-                    color: Color(0x320E151B),
-                    offset: Offset(0, -2),
-                  )
-                ],
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+            InkWell(
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DeliveryaddressWidget(),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).black600,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4,
+                      color: Color(0x320E151B),
+                      offset: Offset(0, -2),
+                    )
+                  ],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
                 ),
-              ),
-              alignment: AlignmentDirectional(0, -0.35),
-              child: Text(
-                'Checkout ',
-                style: FlutterFlowTheme.of(context).title2.override(
-                      fontFamily: 'Poppins',
-                      color: FlutterFlowTheme.of(context).primaryBtnText,
-                    ),
+                alignment: AlignmentDirectional(0, -0.35),
+                child: Text(
+                  'Checkout ',
+                  style: FlutterFlowTheme.of(context).title2.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).primaryBtnText,
+                      ),
+                ),
               ),
             ),
           ],

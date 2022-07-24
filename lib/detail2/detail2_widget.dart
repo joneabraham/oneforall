@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -370,9 +371,6 @@ class _Detail2WidgetState extends State<Detail2Widget>
                         userId: currentUserReference,
                       );
                       await CartRecord.collection.doc().set(cartCreateData);
-                      if (!(widget.pkk != null)) {
-                        return;
-                      }
                       await showDialog(
                         context: context,
                         builder: (alertDialogContext) {
@@ -388,6 +386,12 @@ class _Detail2WidgetState extends State<Detail2Widget>
                             ],
                           );
                         },
+                      );
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavBarPage(initialPage: 'cart'),
+                        ),
                       );
                     },
                     text: 'Add to Cart',

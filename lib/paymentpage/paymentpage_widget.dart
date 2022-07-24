@@ -2,8 +2,11 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:just_audio/just_audio.dart';
 
 class PaymentpageWidget extends StatefulWidget {
   const PaymentpageWidget({Key key}) : super(key: key);
@@ -13,7 +16,24 @@ class PaymentpageWidget extends StatefulWidget {
 }
 
 class _PaymentpageWidgetState extends State<PaymentpageWidget> {
+  AudioPlayer soundPlayer;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance?.addPostFrameCallback((_) async {
+      soundPlayer ??= AudioPlayer();
+      if (soundPlayer.playing) {
+        await soundPlayer.stop();
+      }
+
+      soundPlayer
+          .setAsset('assets/audios/Msg_Recevied.mp3')
+          .then((_) => soundPlayer.play());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,35 +109,45 @@ class _PaymentpageWidgetState extends State<PaymentpageWidget> {
             Expanded(
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Go Home',
-                      options: FFButtonOptions(
-                        width: 230,
-                        height: 50,
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .subtitle2
-                            .override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                        elevation: 0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
+                child: InkWell(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NavBarPage(initialPage: 'Main'),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FFButtonWidget(
+                        onPressed: () {
+                          print('Button pressed ...');
+                        },
+                        text: 'Go Home',
+                        options: FFButtonOptions(
+                          width: 230,
+                          height: 50,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .subtitle2
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                          elevation: 0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

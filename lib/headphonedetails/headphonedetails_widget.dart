@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -145,46 +146,14 @@ class _HeadphonedetailsWidgetState extends State<HeadphonedetailsWidget>
                       children: [
                         Align(
                           alignment: AlignmentDirectional(0, 0),
-                          child: StreamBuilder<List<ItemsRecord>>(
-                            stream: queryItemsRecord(
-                              queryBuilder: (itemsRecord) =>
-                                  itemsRecord.orderBy('pid'),
-                              singleRecord: true,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0),
+                            child: Image.network(
+                              widget.head.productImage,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.contain,
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<ItemsRecord> imageItemsRecordList =
-                                  snapshot.data;
-                              // Return an empty Container when the document does not exist.
-                              if (snapshot.data.isEmpty) {
-                                return Container();
-                              }
-                              final imageItemsRecord =
-                                  imageItemsRecordList.isNotEmpty
-                                      ? imageItemsRecordList.first
-                                      : null;
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(0),
-                                child: Image.network(
-                                  widget.head.productImage,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  fit: BoxFit.contain,
-                                ),
-                              );
-                            },
                           ),
                         ),
                         Padding(
@@ -383,6 +352,12 @@ class _HeadphonedetailsWidgetState extends State<HeadphonedetailsWidget>
                             ],
                           );
                         },
+                      );
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NavBarPage(initialPage: 'cart'),
+                        ),
                       );
                     },
                     text: 'Add to Cart',

@@ -20,19 +20,32 @@ class _$AuctionRecordSerializer implements StructuredSerializer<AuctionRecord> {
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
     Object value;
-    value = object.timeBegin;
+    value = object.auctionImg;
     if (value != null) {
       result
-        ..add('time_begin')
+        ..add('auction_img')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
+            specifiedType: const FullType(String)));
     }
-    value = object.timeEnd;
+    value = object.auctionName;
     if (value != null) {
       result
-        ..add('time_end')
+        ..add('auction_name')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
+            specifiedType: const FullType(String)));
+    }
+    value = object.auctionPrice;
+    if (value != null) {
+      result
+        ..add('auction_price')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.auctionDesc;
+    if (value != null) {
+      result
+        ..add('auction_desc')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.reference;
     if (value != null) {
@@ -57,13 +70,21 @@ class _$AuctionRecordSerializer implements StructuredSerializer<AuctionRecord> {
       iterator.moveNext();
       final Object value = iterator.current;
       switch (key) {
-        case 'time_begin':
-          result.timeBegin = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+        case 'auction_img':
+          result.auctionImg = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
-        case 'time_end':
-          result.timeEnd = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+        case 'auction_name':
+          result.auctionName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'auction_price':
+          result.auctionPrice = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'auction_desc':
+          result.auctionDesc = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
@@ -80,16 +101,26 @@ class _$AuctionRecordSerializer implements StructuredSerializer<AuctionRecord> {
 
 class _$AuctionRecord extends AuctionRecord {
   @override
-  final DateTime timeBegin;
+  final String auctionImg;
   @override
-  final DateTime timeEnd;
+  final String auctionName;
+  @override
+  final int auctionPrice;
+  @override
+  final String auctionDesc;
   @override
   final DocumentReference<Object> reference;
 
   factory _$AuctionRecord([void Function(AuctionRecordBuilder) updates]) =>
       (new AuctionRecordBuilder()..update(updates)).build();
 
-  _$AuctionRecord._({this.timeBegin, this.timeEnd, this.reference}) : super._();
+  _$AuctionRecord._(
+      {this.auctionImg,
+      this.auctionName,
+      this.auctionPrice,
+      this.auctionDesc,
+      this.reference})
+      : super._();
 
   @override
   AuctionRecord rebuild(void Function(AuctionRecordBuilder) updates) =>
@@ -102,22 +133,30 @@ class _$AuctionRecord extends AuctionRecord {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AuctionRecord &&
-        timeBegin == other.timeBegin &&
-        timeEnd == other.timeEnd &&
+        auctionImg == other.auctionImg &&
+        auctionName == other.auctionName &&
+        auctionPrice == other.auctionPrice &&
+        auctionDesc == other.auctionDesc &&
         reference == other.reference;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, timeBegin.hashCode), timeEnd.hashCode), reference.hashCode));
+        $jc(
+            $jc($jc($jc(0, auctionImg.hashCode), auctionName.hashCode),
+                auctionPrice.hashCode),
+            auctionDesc.hashCode),
+        reference.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('AuctionRecord')
-          ..add('timeBegin', timeBegin)
-          ..add('timeEnd', timeEnd)
+          ..add('auctionImg', auctionImg)
+          ..add('auctionName', auctionName)
+          ..add('auctionPrice', auctionPrice)
+          ..add('auctionDesc', auctionDesc)
           ..add('reference', reference))
         .toString();
   }
@@ -127,13 +166,21 @@ class AuctionRecordBuilder
     implements Builder<AuctionRecord, AuctionRecordBuilder> {
   _$AuctionRecord _$v;
 
-  DateTime _timeBegin;
-  DateTime get timeBegin => _$this._timeBegin;
-  set timeBegin(DateTime timeBegin) => _$this._timeBegin = timeBegin;
+  String _auctionImg;
+  String get auctionImg => _$this._auctionImg;
+  set auctionImg(String auctionImg) => _$this._auctionImg = auctionImg;
 
-  DateTime _timeEnd;
-  DateTime get timeEnd => _$this._timeEnd;
-  set timeEnd(DateTime timeEnd) => _$this._timeEnd = timeEnd;
+  String _auctionName;
+  String get auctionName => _$this._auctionName;
+  set auctionName(String auctionName) => _$this._auctionName = auctionName;
+
+  int _auctionPrice;
+  int get auctionPrice => _$this._auctionPrice;
+  set auctionPrice(int auctionPrice) => _$this._auctionPrice = auctionPrice;
+
+  String _auctionDesc;
+  String get auctionDesc => _$this._auctionDesc;
+  set auctionDesc(String auctionDesc) => _$this._auctionDesc = auctionDesc;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -147,8 +194,10 @@ class AuctionRecordBuilder
   AuctionRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _timeBegin = $v.timeBegin;
-      _timeEnd = $v.timeEnd;
+      _auctionImg = $v.auctionImg;
+      _auctionName = $v.auctionName;
+      _auctionPrice = $v.auctionPrice;
+      _auctionDesc = $v.auctionDesc;
       _reference = $v.reference;
       _$v = null;
     }
@@ -170,7 +219,11 @@ class AuctionRecordBuilder
   _$AuctionRecord build() {
     final _$result = _$v ??
         new _$AuctionRecord._(
-            timeBegin: timeBegin, timeEnd: timeEnd, reference: reference);
+            auctionImg: auctionImg,
+            auctionName: auctionName,
+            auctionPrice: auctionPrice,
+            auctionDesc: auctionDesc,
+            reference: reference);
     replace(_$result);
     return _$result;
   }

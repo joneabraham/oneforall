@@ -1,7 +1,9 @@
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../othersdetails/othersdetails_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -47,22 +49,6 @@ class _OthersWidgetState extends State<OthersWidget>
         opacity: 1,
       ),
     ),
-    'rowOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: false,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 20),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
-    ),
     'containerOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
@@ -79,7 +65,7 @@ class _OthersWidgetState extends State<OthersWidget>
         opacity: 1,
       ),
     ),
-    'rowOnPageLoadAnimation3': AnimationInfo(
+    'rowOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       hideBeforeAnimating: false,
@@ -111,7 +97,7 @@ class _OthersWidgetState extends State<OthersWidget>
         opacity: 1,
       ),
     ),
-    'rowOnPageLoadAnimation4': AnimationInfo(
+    'rowOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       hideBeforeAnimating: false,
@@ -194,7 +180,7 @@ class _OthersWidgetState extends State<OthersWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
                   child: Text(
-                    'Others',
+                    'others',
                     style: FlutterFlowTheme.of(context).title1,
                   ),
                 ),
@@ -215,207 +201,140 @@ class _OthersWidgetState extends State<OthersWidget>
               children: [
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    primary: false,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
-                        child: Container(
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                  child: StreamBuilder<List<OthersRecord>>(
+                    stream: queryOthersRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                            ),
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Hero(
-                                tag: 'productShoe',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/81vCejH6FxL._SL1500_.jpg',
-                                  width: double.infinity,
-                                  height: 300,
-                                  fit: BoxFit.contain,
+                        );
+                      }
+                      List<OthersRecord> listViewOthersRecordList =
+                          snapshot.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listViewOthersRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewOthersRecord =
+                              listViewOthersRecordList[listViewIndex];
+                          return Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                            child: Container(
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: BoxShape.rectangle,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0, 10, 0, 10),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            OthersdetailsWidget(
+                                          oth: listViewOthersRecord,
+                                          oth2: listViewOthersRecord.reference,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      StreamBuilder<List<SmartphoneRecord>>(
+                                        stream: querySmartphoneRecord(),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<SmartphoneRecord>
+                                              imageSmartphoneRecordList =
+                                              snapshot.data;
+                                          return Hero(
+                                            tag: listViewOthersRecord
+                                                .productImage,
+                                            transitionOnUserGestures: true,
+                                            child: Image.network(
+                                              listViewOthersRecord.productImage,
+                                              width: double.infinity,
+                                              height: 300,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16, 20, 16, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              listViewOthersRecord.productname,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title2,
+                                            ),
+                                            Text(
+                                              listViewOthersRecord.productPrice
+                                                  .toString(),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                      ),
+                                            ),
+                                          ],
+                                        ).animated([
+                                          animationsMap[
+                                              'rowOnPageLoadAnimation1']
+                                        ]),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 20, 16, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Kingston Q500 240GB SSD',
-                                      style:
-                                          FlutterFlowTheme.of(context).title2,
-                                    ),
-                                    Text(
-                                      'RS 2899',
-                                      style: FlutterFlowTheme.of(context)
-                                          .title2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                          ),
-                                    ),
-                                  ],
-                                ).animated(
-                                    [animationsMap['rowOnPageLoadAnimation1']]),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 16),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'Produced by kingston',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2,
-                                    ),
-                                  ],
-                                ).animated(
-                                    [animationsMap['rowOnPageLoadAnimation2']]),
-                              ),
-                            ],
-                          ),
-                        ).animated(
-                            [animationsMap['containerOnPageLoadAnimation1']]),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
-                        child: Container(
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Image.asset(
-                                'assets/images/71elA81KMeL._SL1500_.jpg',
-                                width: double.infinity,
-                                height: 300,
-                                fit: BoxFit.contain,
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 20, 16, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'HP USB 3.1 64 GB',
-                                      style:
-                                          FlutterFlowTheme.of(context).title2,
-                                    ),
-                                    Text(
-                                      'RS 899',
-                                      style: FlutterFlowTheme.of(context)
-                                          .title2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                          ),
-                                    ),
-                                  ],
-                                ).animated(
-                                    [animationsMap['rowOnPageLoadAnimation3']]),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 16),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'Produced by HP',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ).animated(
-                            [animationsMap['containerOnPageLoadAnimation2']]),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 2),
-                        child: Container(
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Image.asset(
-                                'assets/images/81XEnkqC6KL._SL1500_.jpg',
-                                width: double.infinity,
-                                height: 300,
-                                fit: BoxFit.contain,
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 20, 16, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Marvel\'s Spider-Man PS4',
-                                      style:
-                                          FlutterFlowTheme.of(context).title2,
-                                    ),
-                                    Text(
-                                      'RS 1680',
-                                      style: FlutterFlowTheme.of(context)
-                                          .title2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                          ),
-                                    ),
-                                  ],
-                                ).animated(
-                                    [animationsMap['rowOnPageLoadAnimation4']]),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 16),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'Produced by Sony',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ).animated(
-                            [animationsMap['containerOnPageLoadAnimation3']]),
-                      ),
-                    ],
+                            ).animated([
+                              animationsMap['containerOnPageLoadAnimation1']
+                            ]),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ],

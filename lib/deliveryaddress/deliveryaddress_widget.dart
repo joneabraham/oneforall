@@ -1,7 +1,11 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../paymentmethod/paymentmethod_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,23 +17,23 @@ class DeliveryaddressWidget extends StatefulWidget {
 }
 
 class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
-  TextEditingController confirmPasswordController;
-  TextEditingController emailAddressController2;
-  TextEditingController passwordController3;
-  TextEditingController emailAddressController1;
-  TextEditingController passwordController1;
-  TextEditingController passwordController2;
+  TextEditingController addressController;
+  TextEditingController homeController;
+  TextEditingController contactController;
+  TextEditingController districtController;
+  TextEditingController stateController;
+  TextEditingController pinController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    confirmPasswordController = TextEditingController();
-    emailAddressController2 = TextEditingController();
-    passwordController3 = TextEditingController();
-    emailAddressController1 = TextEditingController();
-    passwordController1 = TextEditingController();
-    passwordController2 = TextEditingController();
+    addressController = TextEditingController();
+    homeController = TextEditingController();
+    contactController = TextEditingController();
+    districtController = TextEditingController();
+    stateController = TextEditingController();
+    pinController = TextEditingController();
   }
 
   @override
@@ -121,7 +125,7 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
-                    controller: emailAddressController1,
+                    controller: homeController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Address1...',
@@ -176,7 +180,7 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
-                    controller: passwordController1,
+                    controller: addressController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Address2...',
@@ -236,7 +240,7 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
-                    controller: passwordController2,
+                    controller: contactController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Contact Number',
@@ -297,7 +301,7 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
-                    controller: emailAddressController2,
+                    controller: districtController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'District',
@@ -352,7 +356,7 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
-                    controller: passwordController3,
+                    controller: stateController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'State',
@@ -407,7 +411,7 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
-                    controller: confirmPasswordController,
+                    controller: pinController,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Pincode',
@@ -449,8 +453,24 @@ class _DeliveryaddressWidgetState extends State<DeliveryaddressWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button-Login pressed ...');
+                  onPressed: () async {
+                    final orderCreateData = createOrderRecordData(
+                      userid: currentUserReference,
+                      cartid: currentUserDocument?.cid,
+                      contact: int.parse(contactController.text),
+                      address: addressController.text,
+                      pin: int.parse(pinController.text),
+                      state: stateController.text,
+                      district: districtController.text,
+                      address2: addressController.text,
+                    );
+                    await OrderRecord.collection.doc().set(orderCreateData);
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentmethodWidget(),
+                      ),
+                    );
                   },
                   text: 'Add Your Address',
                   options: FFButtonOptions(
